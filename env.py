@@ -48,7 +48,31 @@ class env(object):
         self.destination_id = 2 
         self.clty_lst = [City(ranges) for i in range(city_num)] # random inititalization 
         self.state  =  None     # Agent visited place
+        self.done = False 
+        self.get_adj_matrix(city_num)
+
+    def get_adj_matrix(self,n):
+        adj_matrix = np.random.random((n,n)) # initialize random matrix 0~1
+        adj_matrix = adj[np.where(adj>=0.5)] = 1
+        adj_matrix = adj[np.where(adj<0.5)] = 0 
+        self.adjacency_matrix = adj_matrix #it stands for possible path to each node 
+
+    def set_destination(self, city_index=None):
+        if city_index is not None : 
+            destination_id = city_index
+        else : destination_id = city_index 
+
+    
+    def is_done(self):
+        if state[-1] == destination_id :
+            self.done = True 
+        else :
+            self.done = False 
         
+        
+    def move_from_to(slef, action):
+        pass
+    
 
 if __name__ == '__main__':
     Ulsan = City(x=20,y=30)

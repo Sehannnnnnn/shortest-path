@@ -1,6 +1,34 @@
 ## Open soruce Project : Solving Shortest path Problem using something
 
 
+
+## Environment (env.py)
+1) x,y 좌표(0~100)를 random generate, default 20개  
+2) 시작점으로 부터 출발해 모든 점을 다 방문하면 종료된다.
+3) object : 시작점으로 부터 출발해 모든 점들을 방문하는 최단 경로는? 
+4) 단순 search의 경우, 모든 경로 탐색은 20! = 2432902008176640000 이므로 불가능하다 
+5) 강화학습을 통해서 최단경로를 찾아보자.
+
+
+
+## Random Mover 
+1) 비교 대상을 확립하기 위해 Random Mover를 베이스라인으로 정한다
+2) 시작점으로 부터 랜덤하게 방문하고, 모든 지점을 방문했으면 종료한다.
+3) 하지만 Random mover는 optimal 경로가 아니다.
+
+
+![random Mover](https://github.com/bongseokkim/shortest-path/blob/main/random_mover.gif)
+
+
+## Reinforcement learning Approach 
+
+1) something 
+2) 
+
+
+
+
+
 ## Chatting log
 
 |  date | name  |  |   |   |

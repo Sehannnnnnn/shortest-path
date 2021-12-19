@@ -1,97 +1,92 @@
+
 import numpy as np
-import pandas as pd 
+import matplotlib.pyplot as plt 
 import random 
-import time 
 
-class City(object):
-    num = 0  # 클래스변수 선언 
-    def __init__(self,ranges=(100,200), x=None, y=None):
-        self.x = x
-        self.y = y
-        self.ranges = ranges 
+class random_generator(object):
+    def __init__(self,num=20, range_=(0,100), start_point=0):
+        self.points = np.random.randint(*range_,size=(num,2))
+        #self.destination = np.random.randint(0,num)
+        self.start_point = start_point
 
-        if x is not None : 
-            self.x = x 
-        else : 
-            self.x = random.randint(*self.ranges)
-
-        if y is not None : 
-            self.y = y 
-        else : 
-            self.y = random.randint(*self.ranges)
-
-        self.position = [self.x,self.y] 
-        self.id = City.num
-        City.num+=1 
-
+    def visualize(self):
+        plt.figure(figsize=(5,5))
+        plt.scatter(self.points[:,0],self.points[:,1], color='red')
+        plt.scatter(self.points[self.start_point][0], self.points[self.start_point][1], marker='*', color='Blue', label='start',s=200)
+        plt.grid()
+        plt.title("generated points (random)")
+        plt.legend()
+        plt.xlabel("x")
+        plt.ylabel("y")
+        plt.show()
         
-    def get_x(self):
-        return self.x
-    
-    def get_y(self):
-        return self.y 
+    def get_points(self):
+        return self.points
 
-    def get_position(self):
-        return self.position
 
-    def get_distance(self, city):
-        if city is isinstance(city,City):
-            diffrence_x = self.get_x()-city.get_x()
-            diffrence_y = self.get_y()-city.get_y()
-            distance = np.sqrt(diffrence_x**2 + diffrence_y**2)
-    def __repr__(self):
-        return f"id:{self.id}, x:{self.get_x()}, y:{self.get_y()}"
+def distance_matric(from_, to_):
+    return np.sqrt((from_[0]-to_[0])**2 +(from_[1]-to_[1])**2)
 
-class env(object):
-    def __init__(self, city_num=10, ranges =[100,200], destination_id=2 ):
-        self.city_num = city_num
-        self.destination_id = 2 
-        self.clty_lst = [City(ranges) for i in range(city_num)] # random inititalization 
-        self.state  =  None     # Agent visited place
-        self.done = False 
-        self.get_adj_matrix(city_num)
 
-    def get_adj_matrix(self,n):
-        adj_matrix = np.random.random((n,n)) # initialize random matrix 0~1
-        adj_matrix = adj[np.where(adj>=0.5)] = 1
-        adj_matrix = adj[np.where(adj<0.5)] = 0 
-        self.adjacency_matrix = adj_matrix #it stands for possible path to each node 
+class environment(object):
+    def __init__(self, points_obj):
+        self.points_obj = points_obj
+        self.points = self.points_obj.get_points()
+        self.current_position = self.points_obj.start_point
+        self.state = np.zeros(len(self.points_obj.points)) # initailize with 0 , [0,0...] ,
+        self.state[self.current_position]=1
 
-    def set_destination(self, city_index=None):
-        if city_index is not None : 
-            destination_id = city_index
-        else : destination_id = city_index 
+        self.next_state = self.state
+        self.history = [self.current_position] 
+        self.reward_history=[]
+       
 
-    
-    def is_done(self):
-        if state[-1] == destination_id :
-            self.done = True 
-        else :
-            self.done = False 
-        
-        
-    def move_from_to(slef, action):
-        pass
-    
+    def is_done(self): 
+        done_mask = False 
+        if sum(self.state) == len(self.points_obj.points): # 다 돌았다. :
+            done_mask = True 
 
-if __name__ == '__main__':
-    Ulsan = City(x=20,y=30)
-    print(Ulsan.get_x())
-    print(Ulsan.get_y())
-    print(Ulsan.get_position())
-    print(Ulsan)
+        return done_mask
 
-    Ulsan2 = City(x=21,y=30)
-    print(Ulsan2.get_x())
-    print(Ulsan2.get_y())
-    print(Ulsan2.get_position())
-    print(Ulsan2)
+    def reward(self, action):
+        distance = distance_matric(from_ =self.points[self.current_position], to_= self.points[action])
+        return distance 
 
-    Ulsan3 = City(ranges=[100,200])
-    print(Ulsan3.get_x())
-    print(Ulsan3.get_y())
-    print(Ulsan3.get_position())
-    print(Ulsan3)
+    def transition(self, action): 
+        reward = self.reward(action)      
+        self.current_position = action  
+        self.state[self.current_position]=1 
+        self.history.append(self.current_position)
+        self.reward_history.append(reward)
+        return [self.state, reward,self.is_done()] 
+
+    def visualize(self,save=0):
+        plt.figure(figsize=(5,5))
+        plt.scatter(self.points_obj.points[:,0],self.points_obj.points[:,1], color='red')
+        plt.scatter(self.points_obj.points[self.points_obj.start_point][0],
+        self.points_obj.points[self.points_obj.start_point][1], marker='*', color='Blue', label='start',s=200)
+
+        for i in range(len(self.history)-1):
+            point_1 =self.points_obj.points[self.history[i]]
+            point_2 = self.points_obj.points[self.history[i+1]]
+            plt.plot([point_1[0],point_2[0]], [point_1[1],point_2[1]],color='black')
+        plt.grid()
+        plt.title(f"moving path, distance: {sum(self.reward_history):.3f}")
+        plt.legend()
+        plt.xlabel("x")
+        plt.ylabel("y")
+        if save >0 :
+            plt.savefig("random_mover/random_mover_image_"+str(save)+".png")
+        plt.show()
+
+
+
+
+
+
+
+
+
 
 
 

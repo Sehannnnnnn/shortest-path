@@ -13,7 +13,6 @@ class random_generator(object):
         plt.figure(figsize=(5,5))
         plt.scatter(self.points[:,0],self.points[:,1], color='red')
         plt.scatter(self.points[self.start_point][0], self.points[self.start_point][1], marker='*', color='Blue', label='start',s=200)
-        #plt.scatter(self.points[self.destination][0], self.points[self.destination][1], marker='*', color='orange', label='destination',s=200)
         plt.grid()
         plt.title("generated points (random)")
         plt.legend()
@@ -29,7 +28,7 @@ def distance_matric(from_, to_):
     return np.sqrt((from_[0]-to_[0])**2 +(from_[1]-to_[1])**2)
 
 
-class env(object):
+class environment(object):
     def __init__(self, points_obj):
         self.points_obj = points_obj
         self.points = self.points_obj.get_points()
@@ -39,6 +38,7 @@ class env(object):
 
         self.next_state = self.state
         self.history = [self.current_position] 
+        self.reward_history=[]
        
 
     def is_done(self): 
@@ -57,24 +57,26 @@ class env(object):
         self.current_position = action  
         self.state[self.current_position]=1 
         self.history.append(self.current_position)
+        self.reward_history.append(reward)
         return [self.state, reward,self.is_done()] 
 
-    def visualize(self):
+    def visualize(self,save=0):
         plt.figure(figsize=(5,5))
         plt.scatter(self.points_obj.points[:,0],self.points_obj.points[:,1], color='red')
         plt.scatter(self.points_obj.points[self.points_obj.start_point][0],
-         self.points_obj.points[self.points_obj.start_point][1], marker='*', color='Blue', label='start',s=200)
+        self.points_obj.points[self.points_obj.start_point][1], marker='*', color='Blue', label='start',s=200)
 
         for i in range(len(self.history)-1):
-            plt.plot(self.points_obj.points[self.history[i]], 
-            self.points_obj.points[self.history[i+1]])
-        
-        #plt.scatter(self.points[self.destination][0], self.points[self.destination][1], marker='*', color='orange', label='destination',s=200)
+            point_1 =self.points_obj.points[self.history[i]]
+            point_2 = self.points_obj.points[self.history[i+1]]
+            plt.plot([point_1[0],point_2[0]], [point_1[1],point_2[1]],color='black')
         plt.grid()
-        plt.title("generated points (random)")
+        plt.title(f"moving path, distance: {sum(self.reward_history):.3f}")
         plt.legend()
         plt.xlabel("x")
         plt.ylabel("y")
+        if save >0 :
+            plt.savefig("random_mover/random_mover_image_"+str(save)+".png")
         plt.show()
 
 

@@ -67,6 +67,11 @@ It's very simple, and there's probably a better way to construct the MDP.
 + https://github.com/kairess/traveling-salesman-problem, TSP Environment Implementation
 + https://ita9naiwa.github.io/reinforcement%20learning/2019/08/27/CombOpt.html, TSP background
 
+## Api
++ NAVER Reverse GeoCoding : https://guide.ncloud-docs.com/docs/naveropenapiv3-maps-reverse-geocoding-reverse-geocoding
+
+## Visualize Module
++ Folium : https://python-visualization.github.io/folium/
 
 ## Dependency
 + train.ipynb is implemented using colab

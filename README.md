@@ -11,13 +11,18 @@
 
 
 
-## Random Mover 
+## Random Mover --version[1]
 1) 비교 대상을 확립하기 위해 Random Mover를 베이스라인으로 정한다
 2) 시작점으로 부터 랜덤하게 방문하고, 모든 지점을 방문했으면 종료한다.
 3) 하지만 Random mover는 optimal 경로가 아니다.
 
-
 ![random Mover](https://github.com/bongseokkim/shortest-path/blob/main/random_mover.gif)
+
+
+## Random Mover --version[2]
+1) Random Mover --version[1]는 모든 가능한 경로을 랜덤해서 방문한다.
+2) 하지만 방문하지 않은 경로만 방문하면 되므로 수정함
+
 
 
 ## Reinforcement learning Approach 

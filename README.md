@@ -7,7 +7,7 @@
 2) 시작점으로 부터 출발해 모든 점을 다 방문하면 종료된다.
 3) object : 시작점으로 부터 출발해 모든 점들을 방문하는 최단 경로는? 
 4) 단순 search의 경우, 모든 경로 탐색은 20! = 2432902008176640000 이므로 불가능하다 
-5) 강화학습을 통해서 최단경로를 찾아보자.
+5) 강화학습을 통해서 최단경로를 찾아보자 (Euclidian Distance).
 
 
 
@@ -23,42 +23,26 @@
 1) Random Mover --version[1]는 모든 가능한 경로을 랜덤해서 방문한다.
 2) 하지만 방문하지 않은 경로만 방문하면 되므로 수정함
 
+![random Mover 2](https://github.com/bongseokkim/shortest-path/blob/main/random_mover_version%5B2%5D/random_mover.gif)
+
+## Reinforcement learning Approach (DQN)
+
+### State 
+ 1) example : [1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, -1.0, 1.0]
+ 2) -1은 방문하지 않은 노드를 표현, 1은 방문한 노드 
+
+### Action 
+1) 현재 노드에서 어디 노드로 방문할 것은가? [0~20] 
 
 
-## Reinforcement learning Approach 
-
-1) something 
-2) 
+### Reward
+1) Euclidan distance 
 
 
+### Training result 
+![random Mover 2](https://github.com/bongseokkim/shortest-path/blob/main/DQN_agent/performence_curve.png)
+
+### result example 
+![random Mover 2](https://github.com/bongseokkim/shortest-path/blob/main/DQN_agent/DQN_agent.gif)
 
 
-
-## Chatting log
-
-|  date | name  |  |   |   |
-|---|---|---|---|---|
-|2021.11.26   | bongseok  | 태양광 발전 예측 문제는 너무 재미없다. 재밌는걸로 주제를 바꾸자             |   |   |
-|2021.11.26   | sehan     | 솔직히 맞다. 태양광보다 실생활에 가까운걸 하자.                              |   |   |
-|2021.11.26   | bongseok  | 최근에 생각한게 있는데, 택배 너무 늦게온다 이걸 풀어보자 어때                  |   |   |
-|2021.11.26   | sehan     | 최단 경로 알고리즘 최근에 배웠는데, 더 좋은 방법 없을까? 고민해보자                |   |   |
-
-
-
-
-## 어떤 걸 할까? 
-+ 2021.11.26  : 프로젝트 주제를, 택배 배송 문제 해결로 정함. 
-
-
-
-## 어케할까? 
-+ 2021.11.26  : 일단 수업시간에 최단경로 알고리즘 배웠는데, 오픈소스를 통해 좋은 방법 할 수있는거 찾아보자 (세한).
-                </br> 강화학습 최근에 공부하고 있는데 이거로 해보자 (봉석).
-
-## 계획
-
-|  date | name  | what to do  |   next meeting plan         |        |
-|---|---|---|---|---|
-|2021.11.26  ~11.29 | bongseok,sehan  |    최적경로 탐색에 대한 레퍼런스 탐색                 | 2021.11.29    |   |
-|2021.11.29  ~ | bongseok,sehan  |    최적경로 탐색에 필요한 기본 클래스 구성                  | 2021.12.1    |   |
-|2021.12.07   | bongseok     | 강화학습 적용을 위한, 환경 구성                |   |   |

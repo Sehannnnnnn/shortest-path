@@ -78,3 +78,5 @@ It's very simple, and there's probably a better way to construct the MDP.
 + train.ipynb is implemented using colab
 + pytorch 1.10.0+cu111
 + numpy 1.19.5
++ folium
++ naver.reversegeocoding.api

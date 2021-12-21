@@ -72,6 +72,7 @@ It's very simple, and there's probably a better way to construct the MDP.
 
 ## Visualize Module
 + Folium : https://python-visualization.github.io/folium/
+![reverse_geocoding jpeg](https://user-images.githubusercontent.com/79133770/146950033-8452ce31-e331-4229-92db-8bca809920bf.png)
 
 ## Dependency
 + train.ipynb is implemented using colab
